@@ -39,23 +39,23 @@ function setup() {
   //player=createSprite(400, 200, 50, 50);
   //player.addImage("img",player_img);
  
- mh=createSprite(150,450,50,50)
+ mh=createSprite(450,450,50,50)
   mh.addImage("mh",mh_img)
-  wb=createSprite(400,350,50,50)
+  wb=createSprite(1100,350,50,50)
   wb.addImage("wb",wb_img)
 
- streetRj = createSprite(150,300,50,50)
+ streetRj = createSprite(450,300,50,50)
  streetRj.addImage("rj",rj_img)
- streetRj.visible=false
+ streetRj.visible=true
 
  street1 = createSprite(300,400,600,800);
  street1.addImage("street1",street1_img)
  street1.visible=false
- man = createSprite(100,200);
+ man = createSprite(1500,500);
  man.addImage("man",man_img);
- man.vi
+ man.visible = false;
 
- can=createSprite(1500,700);
+ can=createSprite(1300,700);
  can.addImage("img",can_img);
  can.visible=false;
 
@@ -75,40 +75,16 @@ function setup() {
 }
  
 
+function move(x,y){
+  man.x=man.x+x;
+  man.y=man.y+y;
+  
+  
+  }
 function draw() {
   background(bg); 
  
-  if (keyDown(UP_ARROW)){
-   move(0,-8);
-}
-if(keyDown(DOWN_ARROW)){
-  move(0,8);
-}
-if(keyDown(LEFT_ARROW)){
-  move(-8,0);
-}
-if(keyDown(RIGHT_ARROW)){
-  move(8,0);
-}
-if(man.x < 200){
-  streetRj.visible=true;
-}
-else{
-  streetRj.visible=false;
-}
-
-if(man.y < 450){
-  mh.visible=true;
-}
-else{
-  mh.visble=false;
-}
-if(man.x<450){
-  wb.visible=true
-}
-else{
-  wb.visible=false;
-}
+ 
   mh.scale=0.2
 
 
@@ -120,6 +96,7 @@ else{
  
   if ( mousePressedOver(streetRj)){
     street1.visible=true
+    man.visible=true
     gameState = "play"
     street1.scale=1.5;
     can.visible=true;
@@ -130,26 +107,45 @@ else{
    trash.scale=0.5;
 }
 if(gameState === "play"){
- man.visible=true;
- man.x=1500
- 
-console.log("working")
 
-
- 
- 
+// man.x=1550
+ //man.y=500;
+ if (keyDown(UP_ARROW)){
+  move(0,-8);
 }
+if(keyDown(DOWN_ARROW)){
+ move(0,8);
+}
+if(keyDown(LEFT_ARROW)){
+ move(-8,0);
+}
+if(keyDown(RIGHT_ARROW)){
+ move(8,0);
+}
+console.log("working")
+man.depth=trash.depth;
+man.depth=man.depth+1
+}
+if(man.isTouching(can)){
+  can.visible=false
+  man.x=800;
+  man.y=500;
+}
+
+
 
 
   drawSprites();
 
 }
+function isTouching(){
+  if(man.x-can.x < man.width/2+can.width/2
+   && can.x-man.x < man.width/2+can.width/2
+   && man.y-can.y < man.height/2+can.height/2
+   && can.y-man.y < man.height/2+can.height/2){
 
-function move(x,y){
-man.x=man.x+x;
-man.y=man.y+y;
 
-
+  }
 }
 
 
